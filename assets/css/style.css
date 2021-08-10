@@ -93,12 +93,19 @@ body {
   align-items: center;
   justify-content: center;
 }
-.control {
+.control-pause {
   opacity: 0;
   text-align: center;
   cursor: pointer;
   user-select: none;
   } 
+.control-prev,
+.control-next {
+  opacity: 1;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+}
 
 .indicators {
   position: relative;
@@ -122,55 +129,64 @@ body {
 .indicators__item.active {
   background-color: rgb(187, 188, 202);
 }
+
 .fas {
   color: rgb(201, 193, 193);
 }
 
-.controls:hover .control,
-.controls:focus .control {
-opacity: 0.8;
+.fa-backward,
+.fa-forward {
+  font-size: 30px;
+}
+
+.controls:hover .control-pause,
+.controls:focus .control-pause {
+opacity: 1;
 user-select: none;
 }
 
 @media (min-width: 992px) {
   .controls {
-    top: 50%;
-    gap: 35%;
+    top: 40%;
+    gap: 40%;
   }
   .indicators {
-    top: 75%;
+    top: 70%;
     gap: 2em; 
   }
-  .fas {
-    font-size: 100px;
+  .fa-pause,
+  .fa-play {
+    font-size: 150px;
   }
 }
 
 @media (max-width: 991.8px) and (min-width: 768px) {
   .controls {
     top: 50%;
-    gap: 33%;
+    gap: 35%;
   }
   .indicators {
     top: 80%;
     gap: 2em; 
   }
-  .fas {
-    font-size: 80px;
+  .fa-pause,
+  .fa-play {
+    font-size: 100px;
   }
 }
 
 @media (max-width: 767.8px) and (min-width: 576px) {
   .controls {
     top: 50%;
-    gap: 30%;
+    gap: 35%;
   }
   .indicators {
     top: 85%;
     gap: 2em; 
   }
-  .fas {
-    font-size: 65px;
+  .fa-pause,
+  .fa-play {
+    font-size: 80px;
   }
 }
 
@@ -183,7 +199,8 @@ user-select: none;
     top: 90%;
     gap: 2em; 
   }
-  .fas {
+  .fa-pause,
+  .fa-play {
     font-size: 50px;
   }
 }
