@@ -18,6 +18,8 @@ const path = {
   htmlFiles: 'index.html',
   jsFiles: './assets/js/main.js',
   jsFiles: './assets/js/create-carousel.js',
+  jsFiles: './assets/js/carousel.js',
+  jsFiles: './assets/js/swipe-carousel.js',
 };
 
 const plugins = [

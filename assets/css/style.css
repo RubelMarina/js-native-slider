@@ -4,8 +4,8 @@
 }
 html,
 body {
-  height: 100vh;
-  width: 100vh;
+  height: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
@@ -98,6 +98,7 @@ body {
   text-align: center;
   cursor: pointer;
   user-select: none;
+  transition: opacity 3s;
   } 
 .control-prev,
 .control-next {
@@ -141,8 +142,9 @@ body {
 
 .controls:hover .control-pause,
 .controls:focus .control-pause {
-opacity: 1;
+opacity: 0.8;
 user-select: none;
+transition: all 2s ease-out;
 }
 
 @media (min-width: 992px) {
