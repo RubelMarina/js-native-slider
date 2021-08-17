@@ -6,7 +6,7 @@ let carousel = new Carousel({
   containerID: '#carousel',
   slideID: '.slide',
   interval: 2000,
-  isPlaing: false,
+  isPlaing: true,
 }
 );
 
