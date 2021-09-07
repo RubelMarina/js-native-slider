@@ -38,6 +38,7 @@ body {
   transition: opacity 1s;
   background: #333;
   color: #fff;
+  transition: 0,1s;
 }
 
 .active {

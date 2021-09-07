@@ -1,42 +1,19 @@
  class Carousel {
   constructor(p) {
 
-  // let settings = this._initConfig(params);
   let settings = {...{containerID: '#carousel', slideID: '.slide', interval: 5000, isPlaing: true}, ...p};
 
-  console.log(settings);
   this.container =  document.querySelector(settings.containerID);
   this.slides = this.container.querySelectorAll(settings.slideID);
   this.interval = settings.interval;
   this.isPlaing = settings.isPlaing;
 }
 
-// _initConfig(o) {
-//   return {...{containerID: '#carousel', slideID: '.slide', interval: 1000, isPlaing: true}, ...o};
-
-// // _initConfig(objectParams) {
-// //   const defaultSettings = {
-// //     containerID: '#carousel',
-// //     slideID: '.slide',
-// //     interval: 1000,
-// //     isPlaing: true
-// //   };
-
-// //   if (typeof objectParams !== 'undefined') {
-// //   defaultSettings.containerID = objectParams.containerID || defaultSettings.containerID;
-// //   defaultSettings.slideID = objectParams.slideID || defaultSettings.slideID;
-// //   defaultSettings.interval = objectParams.interval|| defaultSettings.interval;
-// //   defaultSettings.isPlaing = objectParams.isPlaing || defaultSettings.isPlaing;
-// //   }
-
-// //   return defaultSettings;
-// }
-
 _initProps() {
     
   this.slidesCount = 5;
   this.CODE_LEFT_ARROW = 'ArrowLeft';
-  this.CODE_RiGHT_ARROW = 'ArrowRight';
+  this.CODE_RIGHT_ARROW = 'ArrowRight';
   this.CODE_SPACE = 'Space';
   this.FA_PAUSE = '<i class="fas fa-pause"></i>';
   this.FA_PLAY = '<i class="fas fa-play"></i>';
@@ -127,12 +104,16 @@ _pause() {
     this.isPlaing = false;
     this.pauseBtn.innerHTML = `${this.FA_PLAY}`;
   }
+  if (!this.isPlaing) {
+    this.pauseBtn.style.opacity = '1';
+  }
 }
 
 _play() {
   this.timerID = setInterval(() => this._gotoNext(), this.interval);
   this.isPlaing = true;
   this.pauseBtn.innerHTML = `${this.FA_PAUSE}`;
+  this.pauseBtn.style.opacity = '0';
 }
 
 _indicate(e) {
@@ -160,12 +141,14 @@ _mouseLeave(ev) {
 
 _pressKey(e) {
   if (e.code === this.CODE_LEFT_ARROW) this.prev();
-  if (e.code === this.CODE_RiGHT_ARROW) this.next();
+  if (e.code === this.CODE_RIGHT_ARROW) this.next();
   if (e.code === this.CODE_SPACE) this.pausePlay();
+  console.log(e.code);
 }
 
 pausePlay() {
   this.isPlaing ? this._pause() : this._play()
+  console.log(this.isPlaing);
 }
 
 prev() {

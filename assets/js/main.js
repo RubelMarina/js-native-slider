@@ -1,11 +1,8 @@
-// import Carousel from './carousel.js';
-// let carousel = new Carousel();
-
 import Carousel from './swipe-carousel.js';
 let carousel = new Carousel({
   containerID: '#carousel',
   slideID: '.slide',
-  interval: 2000,
+  interval: 3000,
   isPlaing: true,
 }
 );
