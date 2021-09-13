@@ -1,17 +1,17 @@
  class Carousel {
   constructor(p) {
-
-  let settings = {...{containerID: '#carousel', slideID: '.slide', interval: 5000, isPlaing: true}, ...p};
+  let settings = {...{containerID: '#carousel', slideID: '.slide', interval: 5000, isPlaying: true}, ...p};
 
   this.container =  document.querySelector(settings.containerID);
   this.slides = this.container.querySelectorAll(settings.slideID);
   this.interval = settings.interval;
-  this.isPlaing = settings.isPlaing;
+  this.isPlaying = settings.isPlaying;
 }
 
 _initProps() {
-    
   this.slidesCount = 5;
+  this.curretSlide = 0;
+
   this.CODE_LEFT_ARROW = 'ArrowLeft';
   this.CODE_RIGHT_ARROW = 'ArrowRight';
   this.CODE_SPACE = 'Space';
@@ -19,8 +19,6 @@ _initProps() {
   this.FA_PLAY = '<i class="fas fa-play"></i>';
   this.FA_PREV = '<i class="fas fa-backward"></i>';
   this.FA_NEXT = '<i class="fas fa-forward"></i>';
-  
-  this.curretSlide = 0;
 }
 
 _initSlides() {
@@ -44,7 +42,7 @@ this.slides = this.container.querySelectorAll('.slides__item');
 
 _initControls() {
   const controls = document.createElement('div');
-  const PAUSE = `<span id="pause-btn" class="control control-pause">${this.isPlaing ? this.FA_PAUSE : this.FA_PLAY}</span>`; 
+  const PAUSE = `<span id="pause-btn" class="control control-pause">${this.FA_PAUSE}</span>`; 
   const PREV = `<span id="prev-btn" class="control control-prev">${this.FA_PREV}</span>`;
   const NEXT = `<span id="next-btn" class="control control-next">${this.FA_NEXT}</span>`;
   
@@ -74,13 +72,13 @@ _initIndicators() {
 }
 
 _initListeners() {
+  document.addEventListener('keydown', this._pressKey.bind(this));
   this.pauseBtn.addEventListener('click', this.pausePlay.bind(this));
   this.prevBtn.addEventListener('click', this.prev.bind(this));
   this.nextBtn.addEventListener('click', this.next.bind(this));
   this.indicatorsContainer.addEventListener('click', this._indicate.bind(this));
-  this.pauseBtn.addEventListener('mouseenter', this._mousePause.bind(this));
-  this.pauseBtn.addEventListener('mouseleave', this._mouseLeave.bind(this));
-  document.addEventListener('keydown', this._pressKey.bind(this));
+  // this.container.addEventListener('mouseenter', this._pause.bind(this));
+  // this.container.addEventListener('mouseleave', this._play.bind(this));
 }
 
 _gotoNth(n) {
@@ -99,21 +97,21 @@ _gotoNext() {
 }
 
 _pause() {
-  if (this.isPlaing) {
-    clearInterval(this.timerID);
-    this.isPlaing = false;
+  // if (this.isPlaying) {
+    this.isPlaying = false;
     this.pauseBtn.innerHTML = `${this.FA_PLAY}`;
-  }
-  if (!this.isPlaing) {
     this.pauseBtn.style.opacity = '1';
-  }
+    clearInterval(this.timerID);
+  // }
 }
 
 _play() {
-  this.timerID = setInterval(() => this._gotoNext(), this.interval);
-  this.isPlaing = true;
-  this.pauseBtn.innerHTML = `${this.FA_PAUSE}`;
-  this.pauseBtn.style.opacity = '0';
+  // if (!this.isPlaying) {
+    this.isPlaying = true;
+    this.pauseBtn.innerHTML = `${this.FA_PAUSE}`;
+    this.pauseBtn.style.opacity = '0';
+    this.timerID = setInterval(() => this._gotoNext(), this.interval);
+  // }
 }
 
 _indicate(e) {
@@ -124,31 +122,14 @@ _indicate(e) {
     }
 }
 
-_mousePause(ev) {
-  const target = ev.target;
-    if (target && target.classList.contains('control-pause')) {
-      this._pause();
-    }
-}
-
-_mouseLeave(ev) {
-  const target = ev.target;
-    if (target && target.classList.contains('control-pause')) {
-      this._play();
-      this.pauseBtn.innerHTML = `${this.FA_PLAY}`;
-    }
-}
-
 _pressKey(e) {
   if (e.code === this.CODE_LEFT_ARROW) this.prev();
   if (e.code === this.CODE_RIGHT_ARROW) this.next();
   if (e.code === this.CODE_SPACE) this.pausePlay();
-  console.log(e.code);
 }
 
 pausePlay() {
-  this.isPlaing ? this._pause() : this._play()
-  console.log(this.isPlaing);
+  this.isPlaying ? this._pause() : this._play();
 }
 
 prev() {
@@ -167,7 +148,7 @@ init() {
   this._initControls();
   this._initIndicators();
   this._initListeners();
-  if (this.isPlaing) this.timerID = setInterval(() => this._gotoNext(), this.interval);
+  if (this.isPlaying) this.timerID = setInterval(() => this._gotoNext(), this.interval);
 }
 }
 
